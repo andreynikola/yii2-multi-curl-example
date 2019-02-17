@@ -15,10 +15,16 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        $threads = 10;
+        $threads = 100;
 
         $multi = new Multi();
         $multi->stackSize = 1000;
+
+        $post = [
+            'username' => 'user',
+            'password' => 'password',
+            'gender'   => 1,
+        ];
 
         for ($i=0; $i < $threads; $i++) { 
             $request[$i] = new Request();
@@ -27,7 +33,10 @@ class SiteController extends Controller
                 [
                     CURLOPT_TIMEOUT_MS => 100,
                     CURLOPT_REFERER => 'http://github.com',
-                    CURLOPT_URL => 'https://localhost',
+                    CURLOPT_URL => 'https://curl',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_POSTFIELDS => $post,
+                    
                 ]
             );
 
